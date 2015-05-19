@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+  <channel>
+    <title>Example Feed</title>
+    <link>bvz.ru/feed/qqq.rss</link>
+    <description>A longer description of my feed.</description>
+    <language>en</language>
+    <pubDate>Tue, 19 May 2015 23:49:04 +0300</pubDate>
+    <item>
+      <title>Ruby 1.9.2-p136 is released</title>
+      <link>http://www.ruby-lang.org/en/news/2010/12/25/ruby-1-9-2-p136-is-released/</link>
+      <pubDate>Tue, 19 May 2015 23:49:04 +0300</pubDate>
+      <dc:date>2015-05-19T23:49:04+03:00</dc:date>
+    </item>
+    <dc:date>2015-05-19T23:49:04+03:00</dc:date>
+  </channel>
+</rss>
