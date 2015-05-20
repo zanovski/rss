@@ -1,40 +1,38 @@
-require 'rss'
-require 'fileutils'
+require 'nokogiri'
 
 class Chanel
-  def initialize (path = nil, host, name)
-    folder = ENV['RAILS_ENV'] == 'production' ? 'feed' : 'feed-dev'
-    @folder = path || "#{Rails.root}/public/#{folder}/"
+  def initialize (host, name, path = nil)
+    @folder = path || "#{Rails.root}/public/feed/"
     @host = host
-    @name = name
+    @name = ENV['RAILS_ENV'] == 'production' ? name : "#{name}-dev"
     @ext = '.rss'
   end
 
-  def build_feed_file
+  def news_rss
 
     path = @folder + @name + @ext
 
-    FileUtils.mkdir(@folder)
-
-    unless File.file? path
-      rss = RSS::Maker.make('2.0') do |maker|
-        maker.channel.language = 'en'
-        maker.channel.author = @host
-        maker.channel.updated = Time.now.to_s
-        maker.channel.link = "#{@host}/feed/#{@name + @ext}"
-        maker.channel.title = 'Example Feed'
-        maker.channel.description = 'A longer description of my feed.'
-        maker.items.new_item do |item|
-          item.link = "http://www.ruby-lang.org/en/news/2010/12/25/ruby-1-9-2-p136-is-released/"
-          item.title = "Ruby 1.9.2-p136 is released"
-          item.updated = Time.now.to_s
+    builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |xml|
+      xml.rss(:version => '2.0') do
+        xml.channel do
+          xml.title ''
+          xml.link ''
+          xml.description ''
+          xml.pubDate Time.now.to_s
+          10.times do
+            xml.item do
+              xml.title 'Super news'
+              xml.description 'some description'
+              xml.link 'link_to_page'
+              xml.pubDate Time.now.to_s
+            end
+          end
         end
       end
+    end
 
-      File.open(path, 'w') do |f|
-        f.write rss
-      end
-
+    File.open(path, 'w') do |f|
+      f.write builder.to_xml
     end
 
   end
