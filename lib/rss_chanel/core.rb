@@ -8,7 +8,7 @@ class Chanel
     @host = host
     @path = folder + name + ext
     unless File.file? @path
-      #new_rss @path
+      new_rss @path
     end
   end
 
