@@ -15,8 +15,11 @@ class Chanel
     @feeds.each do |key, item|
       item['file'] = @root + @config['path'] + item['fileName']
       unless File.file? item['file']
-        new_rss item['file']
+        new_rss item
       end
+      item.delete 'description'
+      item.delete 'title'
+      item.delete 'ttl'
     end
   end
 
@@ -55,21 +58,20 @@ class Chanel
 
   private
 
-  def new_rss (path)
+  def new_rss (rss_config)
 
     builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |rss|
       rss.rss(:version => '2.0') do
         rss.channel do
-          rss.title @config['title']
-          rss.description @config['description']
-          rss.link @config['host']
-          rss.pubDate Time.now.to_s
-          rss.ttl @config['ttl']
+          rss.title rss_config['title']
+          rss.description rss_config['description']
+          rss.link rss_config['host']
+          rss.ttl rss_config['ttl']
         end
       end
     end
 
-    File.open(path, 'w') do |f|
+    File.open(rss_config['file'], 'w') do |f|
       f.write builder.to_xml
     end
 
