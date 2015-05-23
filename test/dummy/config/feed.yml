@@ -7,10 +7,10 @@ development:
   <<: *default
   feeds:
     items:
-      relativePath: /items/something/else
+      relativePath: /items/something/else/
       fileName: items-dev.rss
     blocks:
-      relativePath: /blocks/something/else
+      relativePath: /blocks/something/else/
       fileName: blocks-dev.rss
 
 test:

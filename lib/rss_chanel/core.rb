@@ -21,7 +21,8 @@ class Chanel
 
   def update_feed (name, entity)
     raise "This feed: #{name} isn't exist" unless @feeds.has_key? name
-    file_path = @feeds[name]['file']
+    feed = @feeds[name]
+    file_path = feed['file']
     file_content = File.read(file_path)
     doc = Nokogiri::XML(file_content)
     exist_chanel = doc.at_xpath("//rss/channel")
@@ -29,7 +30,7 @@ class Chanel
       xml.item do
         xml.title entity['title']
         xml.description entity['description']
-        xml.link "#{@host}/name/#{entity['id']}"
+        xml.link "#{@config['host']}#{feed['relativePath']}#{entity['id']}"
         xml.pubDate Time.now.to_s
       end
     end
