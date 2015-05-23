@@ -39,7 +39,7 @@ class Chanel
       rss.item do
         rss.title entity['title']
         rss.description entity['description']
-        rss.link "#{@config['host']}#{feed['relativePath']}#{entity['id']}"
+        rss.link "#{feed['host']}#{feed['relativePath']}#{entity['id']}"
         rss.pubDate Time.now.to_s
       end
     end
