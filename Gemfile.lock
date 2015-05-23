@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     rss_chanel (0.0.1)
-      rails (~> 4.1.10)
+      rails (~> 4.1.8)
 
 GEM
   remote: https://rubygems.org/
