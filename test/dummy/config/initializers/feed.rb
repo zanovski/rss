@@ -1,2 +1,2 @@
 require "rss_chanel"
-::Feed = Chanel.new
+::Feed = Chanel.instance

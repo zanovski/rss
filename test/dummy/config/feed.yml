@@ -9,9 +9,11 @@ development:
     items:
       relativePath: /items/something/else/
       fileName: items-dev.rss
+      length: 15
     blocks:
       relativePath: /blocks/something/else/
       fileName: blocks-dev.rss
+      length: 15
 
 test:
   <<: *default
