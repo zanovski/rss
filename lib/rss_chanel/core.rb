@@ -1,15 +1,22 @@
 require 'nokogiri'
+require 'yaml'
+
 
 class Chanel
-  def initialize (host, name, chanel_title)
-    folder = "#{Rails.root}/public/feed/"
-    name = ENV['RAILS_ENV'] == 'production' ? name : "#{name}-dev"
-    ext = '.rss'
-    @host = host
-    @path = folder + name + ext
-    unless File.file? @path
-      new_rss @path, chanel_title
+
+  def initialize
+    @root = Rails.root.to_s
+    @config = YAML.load_file("#{@root}/config/feed.yml")[ENV['RAILS_ENV']]
+
+    feeds = @config['feeds']
+
+    feeds.each do |key, item|
+      file = @root + @config['path'] + item['fileName']
+      unless File.file? file
+        new_rss(file)
+      end
     end
+
   end
 
   def update_feed (item)
@@ -29,15 +36,19 @@ class Chanel
     end
   end
 
+  def self.create_chanel
+    raise 'Abstract static method'
+  end
+
   private
 
-  def new_rss (path, chanel_title)
+  def new_rss (path)
 
     builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |xml|
       xml.rss(:version => '2.0') do
         xml.channel do
-          xml.title chanel_title
-          xml.link @host
+          xml.title @config['title']
+          xml.link @config['host']
           xml.pubDate Time.now.to_s
         end
       end

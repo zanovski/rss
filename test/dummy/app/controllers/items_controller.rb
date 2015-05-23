@@ -4,6 +4,7 @@ class ItemsController < ApplicationController
   # GET /items
   def index
     @items = Item.all
+    puts Feed
   end
 
   # GET /items/1

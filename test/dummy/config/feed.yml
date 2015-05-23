@@ -1,0 +1,20 @@
+default: &default
+  path: /public/feed/
+  host: superhost.ru
+  title: Title for new feed
+
+development:
+  <<: *default
+  feeds:
+    items:
+      relativePath: /items/something/else
+      fileName: items-dev.rss
+    blocks:
+      relativePath: /blocks/something/else
+      fileName: blocks-dev.rss
+
+test:
+  <<: *default
+
+production:
+  <<: *default
