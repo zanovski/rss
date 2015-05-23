@@ -2,6 +2,8 @@ default: &default
   path: /public/feed/
   host: superhost.ru
   title: Title for new feed
+  ttl: 20
+  description: 'Super RSS feed'
 
 development:
   <<: *default

@@ -32,12 +32,12 @@ class Chanel
 
     doc.xpath("//item[1]").remove if doc.xpath("//item").length >= feed_length
 
-    entity = Nokogiri::XML::Builder.new do |xml|
-      xml.item do
-        xml.title entity['title']
-        xml.description entity['description']
-        xml.link "#{@config['host']}#{feed['relativePath']}#{entity['id']}"
-        xml.pubDate Time.now.to_s
+    entity = Nokogiri::XML::Builder.new do |rss|
+      rss.item do
+        rss.title entity['title']
+        rss.description entity['description']
+        rss.link "#{@config['host']}#{feed['relativePath']}#{entity['id']}"
+        rss.pubDate Time.now.to_s
       end
     end
 
@@ -57,12 +57,14 @@ class Chanel
 
   def new_rss (path)
 
-    builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |xml|
-      xml.rss(:version => '2.0') do
-        xml.channel do
-          xml.title @config['title']
-          xml.link @config['host']
-          xml.pubDate Time.now.to_s
+    builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |rss|
+      rss.rss(:version => '2.0') do
+        rss.channel do
+          rss.title @config['title']
+          rss.description @config['description']
+          rss.link @config['host']
+          rss.pubDate Time.now.to_s
+          rss.ttl @config['ttl']
         end
       end
     end
