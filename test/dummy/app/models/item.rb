@@ -4,7 +4,7 @@ class Item < ActiveRecord::Base
   private
 
   def update_feed
-    Feed.update_feed(self)
+    Feed.update_feed('items', self)
   end
 
 end
