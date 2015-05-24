@@ -9,7 +9,7 @@ class Chanel
   def initialize
 
     @root = Rails.root.to_s
-    @config = YAML.load_file("#{@root}/config/feed.yml")[ENV['RAILS_ENV']]
+    @config = YAML.load_file("#{@root}/config/feed.yml")[ENV['RAILS_ENV'] || 'development']
     @feeds = @config['feeds']
 
     @feeds.each do |key, item|
